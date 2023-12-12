@@ -1,0 +1,44 @@
+menu = """
+[1] Saque
+[2] Deposito
+[3] Extrato
+[4] Sair
+"""
+
+saldo               = 1500.0
+limite_saque        = 500.0
+limite_saques       = 3
+numero_saques       = 0
+extrato             = ""
+
+while True:
+    opcao   = input(menu)
+
+    if  opcao   == "1":
+        valor_sacado        = float(input("Qual valor deseja sacar?\nR$"))
+        if numero_saques < limite_saques and valor_sacado < limite_saque:
+            numero_saques   += 1
+            saldo           -= valor_sacado
+            extrato         += f"- R${valor_sacado:.2f}\n"
+            print(f"Saque realizado com sucesso! \nSaldo atual: R${saldo}")
+        elif valor_sacado > saldo:
+            print(f"Saldo insuficiente \nSaldo atual: R${saldo}")
+        elif valor_sacado > limite_saque:
+            print("Limite de saque atingido, tente novamente")
+        elif numero_saques == limite_saques:
+            print("Limite de saques atingido, tente novamente mais tarde")
+
+    elif opcao  == "2":
+        valor_depositado    = float(input("Qual o valor a ser depositado?\nR$"))
+        if valor_depositado > 0:
+            saldo           += valor_depositado
+            extrato         += f"+ R${valor_depositado:.2f}\n"
+            print(f"Deposito realizado com sucesso!\nSaldo atual: R${saldo}")
+
+    elif opcao  == "3":
+        if extrato == "":
+            print("Não há registro de movimentações")
+        else:
+            print(extrato)
+    elif opcao  == "4":
+        break
